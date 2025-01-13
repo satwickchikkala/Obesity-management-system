@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Added Google Fonts -->
+    <style>
+        body {
+            background-color: #d4edda;
+            background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1)), url('{{ url_for("static", filename="background.jpg") }}'); /* Light green background */
+            font-family: 'Roboto', sans-serif; /* Updated font */
+            color: #333333c7; /* Dark text color for contrast */
+            padding: 20px; /* Add some padding */
+            text-align: center; /* Center align text */
+        }
+        h1, h2 {
+            color: #176a1b; /* Darker green for headings */
+        }
+        h3 {
+            color: #1b5e20; /* Even darker green for subheadings */
+        }
+        ul {
+            list-style-type: none; /* Remove default bullets */
+            padding: 0; /* Remove padding */
+        }
+        li {
+            margin-bottom: 10px; /* Space between list items */
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #333333c7;
+            text-align: left;
+        }
+        th {
+            background-color: #176a1b;
+            color: white;
+        }
+        td {
+            background-color: #e9f7ef;
+        }
+        strong {
+            color: #555; /* Color for strong text */
+        }
+    </style>
+</head>
+<body>
+    <h1>Results for {{ patient.name }}</h1>
+
+    <table>
+        <tr>
+            <th>Measurement</th>
+            <th>Value</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>BMI</td>
+            <td>{{ patient.bmi }}</td>
+            <td>Body Mass Index: A measure of body fat based on height and weight</td>
+        </tr>
+        <tr>
+            <td>Waist-to-Hip Ratio</td>
+            <td>{{ patient.whr }}</td>
+            <td>A measure comparing the size of your waist to that of your hips</td>
+        </tr>
+        <tr>
+            <td>Basal Metabolic Rate</td>
+            <td>{{ patient.bmr }}</td>
+            <td>The number of calories your body needs at rest to maintain basic bodily functions</td>
+        </tr>
+        <tr>
+            <td>Prediction</td>
+            <td colspan="2">{{ patient.prediction }}</td>
+        </tr>
+    </table>
+
+    {% if patient.prediction == 'Risk of Obesity' %}
+        <h2>Dietary Plan for Diabetic Patients with Risk of Obesity</h2>
+        <p>To manage diabetes and achieve a healthy weight, here is a suggested dietary plan:</p>
+        <h3>Daily Meal Suggestions:</h3>
+        <table>
+            <tr>
+                <th>Meal</th>
+                <th>Suggestions</th>
+            </tr>
+            <tr>
+                <td>Breakfast</td>
+                <td>
+                    Whole-grain oats with chia seeds, flaxseeds, and cinnamon<br>
+                    Vegetable poha with a mix of vegetables (carrots, peas, beans)
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>
+                    Handful of almonds and walnuts<br>
+                    1 small apple or pear
+                </td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>
+                    1 roti (whole wheat) with vegitable curry<br>
+                    1 bowl of mixed vegetable salad with cucumber, tomato, and carrot
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>1 cup of buttermilk or a small bowl of plain yogurt</td>
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                <td>
+                    Vegetable soup (tomato or mixed vegetable) with stir-fried greens<br>
+                    1 bowl of moong dal khichdi with steamed vegetables
+                </td>
+            </tr>
+        </table>
+
+    {% elif patient.prediction == 'Overweight' %}
+        <h2>Dietary Plan for Overweight Individuals</h2>
+        <p>To manage weight and improve overall health, here is a suggested Indian dietary plan:</p>
+        <h3>Daily Meal Suggestions:</h3>
+        <table>
+            <tr>
+                <th>Meal</th>
+                <th>Suggestions</th>
+            </tr>
+            <tr>
+                <td>Breakfast</td>
+                <td>
+                    1 bowl of poha with peanuts, mixed vegetables, and a squeeze of lemon<br>
+                    1 boiled egg or scrambled paneer with a side of tomatoes
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>
+                    A handful of almonds and walnuts<br>
+                    1 small apple or papaya
+                </td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>
+                    1 multigrain roti with mixed vegetable sabzi (avoid potatoes)<br>
+                    A bowl of cucumber, tomato, and onion salad with lemon dressing<br>
+                    1 small bowl of dal (lentils) or a low-fat yogurt
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>1 cup of green tea with a few slices of cucumber or carrots</td>
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                <td>
+                    Grilled chicken breast with stir-fried vegetables (broccoli, spinach, and carrots)<br>
+                    1 small portion of brown rice
+                </td>
+            </tr>
+        </table>
+
+    {% elif patient.prediction == 'Healthy Weight' %}
+        <h2>Dietary Plan for Diabetic Patients with Healthy Weight</h2>
+        <p>To maintain a healthy weight and manage blood sugar levels, here is a suggested dietary plan:</p>
+        <h3>Daily Meal Suggestions:</h3>
+        <table>
+            <tr>
+                <th>Meal</th>
+                <th>Suggestions</th>
+            </tr>
+            <tr>
+                <td>Breakfast</td>
+                <td>
+                    Besan chilla with mint chutney<br>
+                    Low-fat yogurt with chia seeds and fresh berries
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>A small bowl of roasted chickpeas</td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>
+                    2 small rotis (whole wheat) with mixed vegetable sabzi (without potatoes)<br>
+                    1 bowl of green salad (cucumber, tomato, bell pepper)
+                </td>
+            </tr>
+            <tr>
+                <td>Snack</td>
+                <td>1 bowl of papaya or a small handful of berries</td>
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                <td>
+                    Grilled paneer with mixed vegetable stir-fry (bell peppers, zucchini, mushrooms)<br>
+                    1 bowl of daal with a side of green salad
+                </td>
+            </tr>
+        </table>
+
+    {% else %}
+        <h2>No Dietary Plan Available</h2>
+        <p>Please consult a healthcare professional for personalized advice.</p>
+    {% endif %}
+</body>
+</html>
